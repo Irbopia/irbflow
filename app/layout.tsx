@@ -1,5 +1,6 @@
 import React from "react";
 import { ClerkProvider } from "@clerk/nextjs";
+import { ThemeProvider } from "@/context/ThemeProvider";
 import { Inter, Space_Grotesk } from "next/font/google";
 import type { Metadata } from "next";
 
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
   title: "irbFlow",
   description: "Community driven platform for becoming better programmers",
   icons: {
-    icon: '/assets/images/site-logo.svg'
+    icon: "/assets/images/site-logo.svg",
   },
 };
 
@@ -41,7 +42,7 @@ export default function RootLayout({
             },
           }}
         >
-          {children}
+          <ThemeProvider>{children}</ThemeProvider>
         </ClerkProvider>
       </body>
     </html>
