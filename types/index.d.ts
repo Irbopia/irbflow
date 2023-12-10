@@ -6,6 +6,19 @@ export interface SidebarLink {
   label: string;
 }
 
+export interface TopQuestions {
+  question: string;
+  src: string;
+  id: number;
+}
+
+export interface PopularTags {
+  _id: number;
+  name: string;
+  totalQuestions: number;
+  showCount?: boolean;
+}
+
 export interface Job {
   id?: string;
   employer_name?: string;

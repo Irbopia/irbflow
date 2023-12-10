@@ -1,4 +1,5 @@
-import { SidebarLink } from "@/types";
+import { SidebarLink, TopQuestions, PopularTags } from "@/types";
+
 
 export const themes = [
   { value: "light", label: "Light", icon: "/assets/icons/sun.svg" },
@@ -71,3 +72,78 @@ export const BADGE_CRITERIA = {
     GOLD: 100000,
   },
 };
+
+
+export const topQuestions: TopQuestions[] = [
+  {
+    id: 1,
+    question: "What is the best way to learn programming?",
+    src: "/",
+  },
+  {
+    id: 2,
+    question: "How to become a full-stack developer?",
+    src: "/",
+  },
+  {
+    id: 3,
+    question: "What is the best way to learn JavaScript?",
+    src: "/",
+  },
+  {
+    id: 4,
+    question: "What is the best way to learn Python?",
+    src: "/",
+  },
+];
+
+export const popularTags: PopularTags[] = [
+  {
+    _id: 1,
+    name: "javascript",
+    totalQuestions: 100,
+    showCount: true,
+  },
+  {
+    _id: 2,
+    name: "react",
+    totalQuestions: 200,
+    showCount: true,
+  },
+  {
+    _id: 3,
+    name: "nodejs",
+    totalQuestions: 150,
+    showCount: true,
+  },
+  {
+    _id: 4,
+    name: "python",
+    totalQuestions: 300,
+    showCount: true,
+  },
+  {
+    _id: 5,
+    name: "typescript",
+    totalQuestions: 100,
+    showCount: true,
+  },
+  {
+    _id: 6,
+    name: "nextjs",
+    totalQuestions: 200,
+    showCount: true,
+  },
+  {
+    _id: 7,
+    name: "vuejs",
+    totalQuestions: 150,
+    showCount: true,
+  },
+  {
+    _id: 8,
+    name: "angular",
+    totalQuestions: 300,
+    showCount: true,
+  },
+]
