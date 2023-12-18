@@ -13,7 +13,7 @@ export interface TopQuestions {
 }
 
 export interface PopularTags {
-  _id: number;
+  _id: string;
   name: string;
   totalQuestions: number;
   showCount?: boolean;

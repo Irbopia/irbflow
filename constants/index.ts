@@ -99,49 +99,49 @@ export const topQuestions: TopQuestions[] = [
 
 export const popularTags: PopularTags[] = [
   {
-    _id: 1,
+    _id: '1',
     name: "javascript",
     totalQuestions: 100,
     showCount: true,
   },
   {
-    _id: 2,
+    _id: '2',
     name: "react",
     totalQuestions: 200,
     showCount: true,
   },
   {
-    _id: 3,
+    _id: '3',
     name: "nodejs",
     totalQuestions: 150,
     showCount: true,
   },
   {
-    _id: 4,
+    _id: '4',
     name: "python",
     totalQuestions: 300,
     showCount: true,
   },
   {
-    _id: 5,
+    _id: '5',
     name: "typescript",
     totalQuestions: 100,
     showCount: true,
   },
   {
-    _id: 6,
+    _id: '6',
     name: "nextjs",
     totalQuestions: 200,
     showCount: true,
   },
   {
-    _id: 7,
+    _id: '7',
     name: "vuejs",
     totalQuestions: 150,
     showCount: true,
   },
   {
-    _id: 8,
+    _id: '8',
     name: "angular",
     totalQuestions: 300,
     showCount: true,
