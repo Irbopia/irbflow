@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+
 import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
@@ -91,13 +93,11 @@ export async function POST(req: Request) {
     const { id } = evt.data;
 
     const deletedUser = await deleteUser({
-        clerkId: id!,
-    })
+      clerkId: id!,
+    });
 
-    return NextResponse.json({ message: 'OK', user: deletedUser});
-
+    return NextResponse.json({ message: "OK", user: deletedUser });
   }
-
 
   return new Response("OK", { status: 200 });
 }
