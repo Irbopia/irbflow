@@ -1,12 +1,8 @@
-"use server";
+"use server"
 
 import User from "@/database/user.model";
-import { connectToDatabase } from "../mongoose";
-import {
-  CreateUserParams,
-  DeleteUserParams,
-  UpdateUserParams,
-} from "./shared.types";
+import { connectToDatabase } from "../mongoose"
+import { CreateUserParams, DeleteUserParams, UpdateUserParams } from "./shared.types";
 import { revalidatePath } from "next/cache";
 import Question from "@/database/question.model";
 
@@ -44,7 +40,9 @@ export async function updateUser(params: UpdateUserParams) {
 
     const { clerkId, updateData, path } = params;
 
-    await User.findOneAndUpdate({ clerkId }, updateData, { new: true });
+    await User.findOneAndUpdate({ clerkId }, updateData, {
+      new: true,
+    });
 
     revalidatePath(path);
   } catch (error) {
@@ -61,23 +59,20 @@ export async function deleteUser(params: DeleteUserParams) {
 
     const user = await User.findOneAndDelete({ clerkId });
 
-    if (!user) {
-      throw new Error("User not found");
+    if(!user) {
+      throw new Error('User not found');
     }
 
-    // delete user from database
-    // and questions , answers, comments, etc
+    // Delete user from database
+    // and questions, answers, comments, etc.
 
-    // get user questions ids
-    // const userQuestionsIds = await Question.find({
-    //   author: user._id,
-    // }).distinct("_id");
+    // get user question ids
+    // const userQuestionIds = await Question.find({ author: user._id}).distinct('_id');
 
     // delete user questions
-
     await Question.deleteMany({ author: user._id });
 
-    // TODO: delete users answers, questions, comments, etc
+    // TODO: delete user answers, comments, etc.
 
     const deletedUser = await User.findByIdAndDelete(user._id);
 
