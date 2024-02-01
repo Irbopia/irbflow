@@ -21,6 +21,7 @@ import { Badge } from "../ui/badge";
 import Image from "next/image";
 import { createQuestion } from "@/lib/actions/question.action";
 import { useRouter, usePathname } from "next/navigation";
+import { useTheme } from "@/context/ThemeProvider";
 
 const type: any = "create";
 
@@ -28,7 +29,8 @@ interface Props {
   mongoUserId: string;
 }
 
-const Question = ( { mongoUserId }: Props) => {
+const Question = ({ mongoUserId }: Props) => {
+  const { mode } = useTheme();
   const editorRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
@@ -59,7 +61,7 @@ const Question = ( { mongoUserId }: Props) => {
         author: JSON.parse(mongoUserId),
         path: pathname,
       });
-    router.push('/')
+      router.push("/");
     } catch (error) {
     } finally {
       setIsSubmitting(false);
@@ -152,15 +154,29 @@ const Question = ( { mongoUserId }: Props) => {
                     height: 350,
                     menubar: false,
                     plugins: [
-                      'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview', 'anchor',
-                      'searchreplace', 'visualblocks', 'codesample', 'fullscreen',
-                      'insertdatetime', 'media', 'table'
+                      "advlist",
+                      "autolink",
+                      "lists",
+                      "link",
+                      "image",
+                      "charmap",
+                      "preview",
+                      "anchor",
+                      "searchreplace",
+                      "visualblocks",
+                      "codesample",
+                      "fullscreen",
+                      "insertdatetime",
+                      "media",
+                      "table",
                     ],
-                    toolbar: 
-                    'undo redo | ' +
-                    'codesample | bold italic forecolor | alignleft aligncenter |' +
-                    'alignright alignjustify | bullist numlist',
-                    content_style: 'body { font-family:Inter; font-size:16px }'
+                    toolbar:
+                      "undo redo | " +
+                      "codesample | bold italic forecolor | alignleft aligncenter |" +
+                      "alignright alignjustify | bullist numlist",
+                    content_style: "body { font-family:Inter; font-size:16px }",
+                    skin: mode === "dark" ? "oxide-dark" : "oxide",
+                    content_css: mode === "dark" ? "dark" : "light",
                   }}
                 />
               </FormControl>
