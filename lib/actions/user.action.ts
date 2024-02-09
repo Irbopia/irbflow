@@ -88,7 +88,7 @@ export async function deleteUser(params: DeleteUserParams) {
   }
 }
 
-// export async function getAllUsers(paramas: GetAllUsersParams) {
+// export async function getAllUsers(params: GetAllUsersParams) {
 //   try {
 //     connectToDatabase();
 //   } catch (error) {
@@ -97,7 +97,7 @@ export async function deleteUser(params: DeleteUserParams) {
 //   }
 // }
 
-export async function getAllUsers(paramas: GetAllUsersParams) {
+export async function getAllUsers(params: GetAllUsersParams) {
   try {
     connectToDatabase();
 
