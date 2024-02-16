@@ -7,6 +7,8 @@ import { formatNumber, getTimeStamp } from "@/lib/utils";
 import ParseHTML from "@/components/shared/ParseHTML";
 import RenderTag from "@/components/shared/RenderTag";
 import Answer from "@/components/forms/Answer";
+import { auth } from "@clerk/nextjs";
+import { getUserById } from "@/lib/actions/user.action";
 
 export default async function Question({
   params,
@@ -17,6 +19,12 @@ export default async function Question({
 }) {
 
   const result = await getQuestionById({ questionId: params.id });
+  const { userId: clerkId } = await auth();
+  let mongoUser;
+
+  if(clerkId) {
+    mongoUser = await getUserById({userId: clerkId});
+  }
 
   return (
     <>
@@ -78,7 +86,13 @@ export default async function Question({
         />
       ))}
       </div>
-      <Answer />
+      <div className="mt-6">
+      <Answer 
+        question={result.content}
+        questionId={JSON.stringify(result._id)}
+        authorId={JSON.stringify(mongoUser._id)}
+      />
+      </div>
     </>
   );
 }
