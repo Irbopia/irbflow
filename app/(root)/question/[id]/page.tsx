@@ -9,6 +9,8 @@ import RenderTag from "@/components/shared/RenderTag";
 import Answer from "@/components/forms/Answer";
 import { auth } from "@clerk/nextjs";
 import { getUserById } from "@/lib/actions/user.action";
+import AllAnswers from "@/components/shared/AllAnswers";
+import Votes from "@/components/shared/Votes";
 
 export default async function Question({
   params,
@@ -18,13 +20,14 @@ export default async function Question({
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
 
-  const result = await getQuestionById({ questionId: params.id });
   const { userId: clerkId } = await auth();
   let mongoUser;
 
   if(clerkId) {
     mongoUser = await getUserById({userId: clerkId});
   }
+
+  const result = await getQuestionById({ questionId: params.id})
 
   return (
     <>
@@ -45,7 +48,11 @@ export default async function Question({
               {result.author.name}
             </p>
           </Link>
-          <div className="flex justify-end">Voting</div>
+          <div className="flex justify-end">
+            <Votes 
+              
+            />
+          </div>
         </div>
         <h2 className="h2-semibold text-dark-200_light900 mt-3.5 w-full text-left">
           {result.title}
@@ -86,13 +93,16 @@ export default async function Question({
         />
       ))}
       </div>
-      <div className="mt-6">
+        <AllAnswers 
+          questionId={result._id}
+          userId={JSON.stringify(mongoUser._id)}
+          totalAnswers={result.answers.length}
+        />
       <Answer 
         question={result.content}
         questionId={JSON.stringify(result._id)}
         authorId={JSON.stringify(mongoUser._id)}
       />
-      </div>
     </>
   );
 }
