@@ -16,18 +16,17 @@ export default async function Question({
   params,
   searchParams,
 }: {
-  params: { id: string }
-  searchParams: { [key: string]: string | string[] | undefined }
+  params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
 }) {
-
-  const { userId: clerkId } = await auth();
+  const { userId: clerkId } = auth();
   let mongoUser;
 
-  if(clerkId) {
-    mongoUser = await getUserById({userId: clerkId});
+  if (clerkId) {
+    mongoUser = await getUserById({ userId: clerkId });
   }
 
-  const result = await getQuestionById({ questionId: params.id})
+  const result = await getQuestionById({ questionId: params.id });
 
   return (
     <>
@@ -49,12 +48,19 @@ export default async function Question({
             </p>
           </Link>
           <div className="flex justify-end">
-            <Votes 
-              
+            <Votes
+              type="Question"
+              itemId={JSON.stringify(result._id)}
+              userId={JSON.stringify(mongoUser._id)}
+              upvotes={result.upvotes.length}
+              hasupVoted={result.upvotes.includes(mongoUser._id)}
+              downvotes={result.downvotes.length}
+              hasdownVoted={result.downvotes.includes(mongoUser._id)}
+              hasSaved={mongoUser?.saved.includes(result._id)}
             />
           </div>
         </div>
-        <h2 className="h2-semibold text-dark-200_light900 mt-3.5 w-full text-left">
+        <h2 className="h2-semibold text-dark200_light900 mt-3.5 w-full text-left">
           {result.title}
         </h2>
       </div>
@@ -83,22 +89,22 @@ export default async function Question({
       </div>
       <ParseHTML data={result.content} />
       <div className="mt-8 flex flex-wrap gap-2">
-      {result.tags.map((tag: any) => (
-        <RenderTag
-          key={tag._id}
-          _id={tag._id}
-          name={tag.name}
-          showCount={false}
-          totalQuestions={0}
-        />
-      ))}
+        {result.tags.map((tag: any) => (
+          <RenderTag
+            key={tag._id}
+            _id={tag._id}
+            name={tag.name}
+            showCount={false}
+            totalQuestions={0}
+          />
+        ))}
       </div>
-        <AllAnswers 
-          questionId={result._id}
-          userId={JSON.stringify(mongoUser._id)}
-          totalAnswers={result.answers.length}
-        />
-      <Answer 
+      <AllAnswers
+        questionId={result._id}
+        userId={mongoUser._id}
+        totalAnswers={result.answers.length}
+      />
+      <Answer
         question={result.content}
         questionId={JSON.stringify(result._id)}
         authorId={JSON.stringify(mongoUser._id)}
