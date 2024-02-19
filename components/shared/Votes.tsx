@@ -9,6 +9,7 @@ import {
 } from "@/lib/actions/question.action";
 import { usePathname } from "next/navigation";
 import { downVoteAnswer, upVoteAnswer } from "@/lib/actions/answer.action";
+import { toggleSaveQuestion } from "@/lib/actions/user.action";
 
 interface Props {
   type: string;
@@ -34,8 +35,16 @@ export default function Votes({
   const pathname = usePathname();
   // const router = useRouter;
 
-  const handleSave = () => {
-    return alert("Saved!");
+  const handleSave = async () => {
+    if (!userId) {
+      return;
+    }
+
+    await toggleSaveQuestion({
+      questionId: JSON.parse(itemId),
+      userId: JSON.parse(userId),
+      path: pathname,
+    });
   };
 
   const handleVote = async (action: string) => {
@@ -134,7 +143,7 @@ export default function Votes({
         <Image
           src={
             hasSaved
-              ? "/assets/icon/star-filled.svg"
+              ? "/assets/icons/star-filled.svg"
               : "/assets/icons/star-red.svg"
           }
           alt="starred"
